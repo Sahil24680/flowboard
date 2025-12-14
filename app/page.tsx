@@ -138,9 +138,9 @@ export default function FlowBoardApp() {
         onImport={handleImport}
         onToggleArchived={() => setShowArchived(!showArchived)}
       />
-      <div className="flex-1 flex">
-        <main className="flex-1 p-6 overflow-hidden">
-          <div className="max-w-7xl mx-auto space-y-6">
+      <div className="flex-1 flex overflow-hidden">
+        <main className="flex-1 p-6 overflow-hidden flex flex-col">
+          <div className="flex-1 space-y-6 overflow-hidden flex flex-col">
             {showArchived ? (
               <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
                 <div className="flex items-center justify-between">
@@ -166,13 +166,15 @@ export default function FlowBoardApp() {
               sortBy={sortBy}
               setSortBy={setSortBy}
             />
-            <Board
-              tasks={filteredTasks}
-              onEdit={handleTaskEdit}
-              onStatusChange={changeTaskStatus}
-              onDrop={changeTaskStatus}
-              sortBy={sortBy}
-            />
+            <div className="flex-1 overflow-auto">
+              <Board
+                tasks={filteredTasks}
+                onEdit={handleTaskEdit}
+                onStatusChange={changeTaskStatus}
+                onDrop={changeTaskStatus}
+                sortBy={sortBy}
+              />
+            </div>
           </div>
         </main>
         <div className="hidden lg:block">

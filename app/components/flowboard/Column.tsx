@@ -49,7 +49,7 @@ export default function Column({
   }
 
   return (
-    <div className="flex-1 min-w-80 snap-center" role="region" aria-label={`${title} column`}>
+    <div className="flex-1 min-w-[280px] max-w-[400px]" role="region" aria-label={`${title} column`}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-sm font-medium text-slate-300 uppercase tracking-wide">{title}</h2>
         <span className="text-xs text-slate-400 bg-slate-700/60 px-2 py-1 rounded-md font-medium" aria-label={`${tasks.length} tasks`}>
