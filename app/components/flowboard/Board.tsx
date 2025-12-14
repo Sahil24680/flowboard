@@ -28,7 +28,7 @@ export default function Board({
   }, [tasks, sortBy])
 
   return (
-    <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory lg:overflow-x-visible pb-4">
+    <div className="flex gap-6 h-full pb-4">
       {STATUSES.map(status => (
         <Column
           key={status.key}

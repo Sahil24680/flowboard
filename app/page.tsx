@@ -16,9 +16,9 @@ import { generateId } from './components/flowboard/utils'
 import type { Task, TaskStatus, Category } from './components/flowboard/types'
 
 const seedTasks: Task[] = [
-  { id: '1', title: 'Design system review', notes: 'Review palette & typography.', category: 'Work', status: 'todo', priority: 'high', createdAt: new Date().toISOString(), dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString() },
+  { id: '1', title: 'Design system review', notes: 'Review palette & typography.', category: 'Work', status: 'todo', priority: 'high', createdAt: new Date().toISOString(), dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] },
   { id: '2', title: 'Weekly team sync', notes: 'Prep agenda: progress + blockers.', category: 'Work', status: 'next', priority: 'medium', createdAt: new Date().toISOString() },
-  { id: '3', title: 'Fix authentication bug', notes: 'Mobile login issue.', category: 'Work', status: 'inprogress', priority: 'critical', createdAt: new Date().toISOString(), dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString() },
+  { id: '3', title: 'Fix authentication bug', notes: 'Mobile login issue.', category: 'Work', status: 'inprogress', priority: 'critical', createdAt: new Date().toISOString(), dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] },
   { id: '4', title: 'Grocery shopping', category: 'Personal', status: 'done', priority: 'low', createdAt: new Date().toISOString() },
   { id: '5', title: 'Learn TypeScript generics', notes: 'Deep dive into advanced TypeScript patterns', category: 'Ideas', status: 'todo', priority: 'medium', createdAt: new Date().toISOString() }
 ]
@@ -138,9 +138,9 @@ export default function FlowBoardApp() {
         onImport={handleImport}
         onToggleArchived={() => setShowArchived(!showArchived)}
       />
-      <div className="flex-1 flex">
-        <main className="flex-1 p-6 overflow-hidden">
-          <div className="max-w-7xl mx-auto space-y-6">
+      <div className="flex-1 flex overflow-hidden">
+        <main className="flex-1 p-6 overflow-hidden flex flex-col">
+          <div className="flex-1 space-y-6 overflow-hidden flex flex-col">
             {showArchived ? (
               <div className="bg-slate-800 border border-slate-700 rounded-xl p-4">
                 <div className="flex items-center justify-between">
@@ -166,13 +166,15 @@ export default function FlowBoardApp() {
               sortBy={sortBy}
               setSortBy={setSortBy}
             />
-            <Board
-              tasks={filteredTasks}
-              onEdit={handleTaskEdit}
-              onStatusChange={changeTaskStatus}
-              onDrop={changeTaskStatus}
-              sortBy={sortBy}
-            />
+            <div className="flex-1 overflow-auto">
+              <Board
+                tasks={filteredTasks}
+                onEdit={handleTaskEdit}
+                onStatusChange={changeTaskStatus}
+                onDrop={changeTaskStatus}
+                sortBy={sortBy}
+              />
+            </div>
           </div>
         </main>
         <div className="hidden lg:block">
