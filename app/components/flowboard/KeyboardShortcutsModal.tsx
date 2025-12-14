@@ -22,18 +22,9 @@ export default function KeyboardShortcutsModal({ isOpen, onClose }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="" panelClassName="!bg-slate-900">
       <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-700 pb-4">
-          <div className="flex items-center gap-3">
-            <Keyboard className="w-6 h-6 text-blue-400" />
-            <h2 className="text-xl font-semibold text-white">Keyboard Shortcuts</h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1 hover:bg-slate-800 rounded-md transition-colors"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5 text-slate-400" />
-          </button>
+        <div className="flex items-center gap-3 border-b border-slate-700 pb-4">
+          <Keyboard className="w-6 h-6 text-blue-400" />
+          <h2 className="text-xl font-semibold text-white">Keyboard Shortcuts</h2>
         </div>
 
         <div className="space-y-3">
