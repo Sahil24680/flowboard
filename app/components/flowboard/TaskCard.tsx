@@ -92,7 +92,7 @@ export default function TaskCard({
           }}
           onClick={(e) => e.stopPropagation()}
           aria-label="Change task status"
-          className="text-xs px-1 py-0.5 border border-slate-600 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 bg-slate-700 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-200 ml-2"
+          className="text-xs px-1 py-0.5 border border-slate-600 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 bg-slate-700 text-white ml-2"
         >
           {STATUSES.map(status => (
             <option key={status.key} value={status.key}>{status.label}</option>
