@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Badge from './Badge'
-import { CATEGORIES, STATUSES, PRIORITIES } from './constants'
+import { CATEGORIES, STATUSES, PRIORITIES, ARCHIVED_STATES } from './constants'
 import { getCategoryColor } from './utils'
 import type { Task, TaskStatus, Category, Priority } from './types'
 import Modal from './Modal'
@@ -13,8 +13,6 @@ type Props = {
   onClose: () => void
   onSave: (task: Task) => void
   onDelete: (taskId: string) => void
-  onArchive?: (taskId: string) => void
-  onUnarchive?: (taskId: string) => void
 }
 
 export default function TaskModal({
@@ -22,9 +20,7 @@ export default function TaskModal({
   isOpen,
   onClose,
   onSave,
-  onDelete,
-  onArchive,
-  onUnarchive
+  onDelete
 }: Props) {
   const [editedTask, setEditedTask] = useState<Task | null>(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -48,16 +44,6 @@ export default function TaskModal({
       onDelete(task.id)
       onClose()
     }
-  }
-
-  const handleArchive = () => {
-    if (!task) return
-    if (task.archived && onUnarchive) {
-      onUnarchive(task.id)
-    } else if (!task.archived && onArchive) {
-      onArchive(task.id)
-    }
-    onClose()
   }
 
   // ──────────────────────────────────────────────────────────────────────────────
@@ -135,14 +121,6 @@ export default function TaskModal({
               Cancel
             </button>
           </>
-        )}
-        {(onArchive || onUnarchive) && (
-          <button
-            onClick={handleArchive}
-            className="px-3 py-1.5 text-sm rounded-md text-slate-300 hover:text-white hover:bg-slate-700/40 ring-1 ring-inset ring-slate-600/40 transition"
-          >
-            {task.archived ? 'Unarchive' : 'Archive'}
-          </button>
         )}
         <button
           onClick={handleDelete}
@@ -297,6 +275,32 @@ export default function TaskModal({
             <p className="text-slate-300">
               {new Date(task.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </p>
+          </div>
+
+          {/* Archived Status */}
+          <div className="rounded-xl border border-slate-700/60 bg-slate-800/50 p-4">
+            <label className="block text-xs font-semibold tracking-wide text-slate-400 uppercase mb-1.5">
+              Status
+            </label>
+            {isEditing ? (
+              <select
+                value={editedTask!.archived ? 'true' : 'false'}
+                onChange={(e) =>
+                  setEditedTask({ ...editedTask!, archived: e.target.value === 'true' })
+                }
+                className="w-full px-3 py-2 rounded-lg bg-slate-900 text-slate-100 border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                {ARCHIVED_STATES.map((state) => (
+                  <option key={state.label} value={state.key.toString()}>
+                    {state.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <Badge className={task.archived ? 'bg-slate-600 text-slate-200' : 'bg-green-600 text-white'}>
+                {task.archived ? 'Archived' : 'Active'}
+              </Badge>
+            )}
           </div>
         </section>
       </div>

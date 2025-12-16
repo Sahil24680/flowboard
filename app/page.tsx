@@ -73,14 +73,6 @@ export default function FlowBoardApp() {
     setTasks(prev => prev.filter(t => t.id !== taskId))
   }, [setTasks])
 
-  const archiveTask = useCallback((taskId: string) => {
-    setTasks(prev => prev.map(t => t.id === taskId ? { ...t, archived: true } : t))
-  }, [setTasks])
-
-  const unarchiveTask = useCallback((taskId: string) => {
-    setTasks(prev => prev.map(t => t.id === taskId ? { ...t, archived: false } : t))
-  }, [setTasks])
-
   const handleImport = useCallback((importedTasks: Task[]) => {
     if (window.confirm('This will replace all current tasks. Continue?')) {
       setTasks(importedTasks)
@@ -204,8 +196,6 @@ export default function FlowBoardApp() {
         onClose={handleModalClose}
         onSave={updateTask}
         onDelete={deleteTask}
-        onArchive={archiveTask}
-        onUnarchive={unarchiveTask}
       />
       <KeyboardShortcutsModal 
         isOpen={showShortcuts}

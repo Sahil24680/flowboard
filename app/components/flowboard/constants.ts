@@ -15,3 +15,8 @@ export const PRIORITIES: { key: Priority; label: string; color: string }[] = [
   { key: 'high', label: 'High', color: 'bg-orange-500 text-white' },
   { key: 'critical', label: 'Critical', color: 'bg-red-500 text-white' }
 ]
+
+export const ARCHIVED_STATES: { key: boolean; label: string }[] = [
+  { key: false, label: 'Active' },
+  { key: true, label: 'Archived' }
+]
