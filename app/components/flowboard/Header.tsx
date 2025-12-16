@@ -50,6 +50,8 @@ export default function Header({
     input.click()
   }
 
+  const archivedCount = tasks?.filter(t => t.archived).length || 0
+
   return (
     <header className="bg-slate-900 border-b border-slate-700 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -81,6 +83,11 @@ export default function Header({
                 >
                   <Archive className="w-4 h-4" />
                   <span className="hidden sm:inline">Archive</span>
+                  {archivedCount > 0 && (
+                    <span className="ml-1 px-1.5 py-0.5 text-xs font-semibold bg-slate-700 text-slate-200 rounded-full">
+                      {archivedCount}
+                    </span>
+                  )}
                 </button>
               )}
             </>
